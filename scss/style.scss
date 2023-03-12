@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.caret {
+  cursor: pointer;
+  user-select: none;
+}
+
+.caret::before {
+  content: "\276F";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  transition: all 0.3s ease;
+  transform: rotate(90deg);
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+.treeMenu {
+  position: relative;
+  width: 148px;
+  font-size: 14px;
+  li {
+    input {
+      display: inline-block;
+      max-width: 84px;
+    }
+  }
+  .treeMoreBtn {
+    position: absolute;
+    right: 0;
+  }
+}
+
+#result {
+  span {
+    position: absolute;
+    right: 0;
+  }
+}
+@mixin treeMoreBtn {
+  .pop_sm_wrap {
+    opacity: 0;
+    border: 1px solid red;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    word-break: break-all;
+    flex-direction: column;
+    width: 50px;
+    gap: 4px;
+    padding: 4px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #eee;
+    display: none;
+  }
+  .pop_sm_wrap.on {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    display: block;
+  }
+}
+.treeMenu {
+  &:focus {
+    outline: none;
+  }
+  li {
+    list-style: none;
+    p {
+      .treeMoreBtn {
+        @include treeMoreBtn;
+        cursor: pointer;
+      }
+    }
+    ul {
+      padding-left: 14px;
+      li {
+        .treeMoreBtn {
+          @include treeMoreBtn;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body>
+        <ul class="treeMenu">
+          <li>
+            <p class="caret caret-down">
+              Beverages
+              <!-- popup ↓ -->
+              <span class="treeMoreBtn">
+                &ctdot;
+                <span class="pop_sm_wrap">
+                  <span>수정</span>
+                  <span>삭제</span>
+                </span>
+              </span>
+            </p>
+            <ul class="nested active">
+              <li>
+                Water
+                <!-- popup ↓ -->
+                <span class="treeMoreBtn">
+                  &ctdot;
+                  <span class="pop_sm_wrap">
+                    <span>수정</span>
+                    <span>삭제</span>
+                  </span>
+                </span>
+              </li>
+              <li>
+                Coffee
+                <!-- popup ↓ -->
+                <span class="treeMoreBtn">
+                  &ctdot;
+                  <span class="pop_sm_wrap">
+                    <span>수정</span>
+                    <span>삭제</span>
+                  </span>
+                </span>
+              </li>
+              <li>
+                <p class="caret caret-down">
+                  Tea
+                  <!-- popup ↓ -->
+                  <span class="treeMoreBtn">
+                    &ctdot;
+                    <span class="pop_sm_wrap">
+                      <span>수정</span>
+                      <span>삭제</span>
+                    </span>
+                  </span>
+                </p>
+                <ul class="nested active">
+                  <li>
+                    Black Tea
+                    <!-- popup ↓ -->
+                    <span class="treeMoreBtn">
+                      &ctdot;
+                      <span class="pop_sm_wrap">
+                        <span>수정</span>
+                        <span>삭제</span>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    White Tea
+                    <!-- popup ↓ -->
+                    <span class="treeMoreBtn">
+                      &ctdot;
+                      <span class="pop_sm_wrap">
+                        <span>수정</span>
+                        <span>삭제</span>
+                      </span>
+                    </span>
+                  </li>
+                  <li>
+                    <p class="caret caret-down">
+                      Green Tea
+                      <!-- popup ↓ -->
+                      <span class="treeMoreBtn">
+                        &ctdot;
+                        <span class="pop_sm_wrap">
+                          <span>수정</span>
+                          <span>삭제</span>
+                        </span>
+                      </span>
+                    </p>
+                    <ul class="nested active">
+                      <li>
+                        Sencha
+                        <!-- popup ↓ -->
+                        <span class="treeMoreBtn">
+                          &ctdot;
+                          <span class="pop_sm_wrap">
+                            <span>수정</span>
+                            <span>삭제</span>
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        Gyokuro
+                        <!-- popup ↓ -->
+                        <span class="treeMoreBtn">
+                          &ctdot;
+                          <span class="pop_sm_wrap">
+                            <span>수정</span>
+                            <span>삭제</span>
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        Matcha
+                        <!-- popup ↓ -->
+                        <span class="treeMoreBtn">
+                          &ctdot;
+                          <span class="pop_sm_wrap">
+                            <span>수정</span>
+                            <span>삭제</span>
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        Pi Lo Chun
+                        <!-- popup ↓ -->
+                        <span class="treeMoreBtn">
+                          &ctdot;
+                          <span class="pop_sm_wrap">
+                            <span>수정</span>
+                            <span>삭제</span>
+                          </span>
+                        </span>
+                      </li>
+                      <li id="result"></li>
+
+                      <li>
+                        <input
+                          type="text"
+                          class="nameAdd"
+                          maxlength="5"
+                          onkeyup="if(window.event.keyCode==13){newName(event)}"
+                          value=""
+                        />
+                        <span class="treeMoreBtn">&ctdot;</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <script>
+          let toggler = document.getElementsByClassName("caret");
+          for (let i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+              this.parentElement
+                .querySelector(".nested")
+                .classList.toggle("active");
+              this.classList.toggle("caret-down");
+            });
+          }
+
+          const nameInput = document.querySelector(".nameAdd");
+          // console.log(nameInput.previousElementSibling);
+          nameInput.addEventListener("focus", function () {
+            newName(event);
+            nameInput.value = "";
+          });
+
+          function newName(event) {
+            const name = document.querySelector(".nameAdd").value;
+
+            const newDiv = document.createElement("li");
+            const newSpan = document.createElement("span");
+
+            // 2. <div>에 들어갈 text node 만들기
+            const newText = document.createTextNode(name);
+            const newspanText = document.createTextNode("⋯");
+
+            // 3. <div>에 text node 붙이기
+            newDiv.appendChild(newText);
+            newSpan.appendChild(newspanText);
+
+            // 4. 1에서 만든 <div> element 붙이기
+            document.querySelector("#result").appendChild(newDiv);
+            document.querySelector("#result").appendChild(newSpan);
+
+            nameInput.value = "";
+          }
+          // 더보기 팝업
+          let treeMoreBtn = document.querySelectorAll(".treeMoreBtn");
+
+          for (let i = 0; i < treeMoreBtn.length; i++) {
+            treeMoreBtn[i].addEventListener("click", function (e) {
+              e.stopPropagation();
+
+              let popSmWrap = document.querySelectorAll(".pop_sm_wrap");
+              for (let i = 0; i < popSmWrap.length; i++) {
+                popSmWrap[i].classList.remove("on");
+
+                // 더보기 팝업 inner ↓
+                const smPopDel =
+                  popSmWrap[i].firstElementChild.nextElementSibling;
+                smPopDel.addEventListener("click", function () {
+                  this.parentElement.parentElement.parentElement.remove();
+                });
+                // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+              }
+              this.firstElementChild.classList.add("on");
+            });
+          }
+
+          let bgCancel = document.querySelectorAll("body");
+          for (let i = 0; i < bgCancel.length; i++) {
+            bgCancel[i].onclick = function () {
+              let popSmWrap = document.querySelectorAll(".pop_sm_wrap");
+              for (let i = 0; i < popSmWrap.length; i++) {
+                popSmWrap[i].classList.remove("on");
+              }
+            };
+          }
+
+          // 더보기 팝업 inner
+
+          let popSmWrap = document.querySelector(".pop_sm_wrap");
+          popSmWrap.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+
+          // const smPopDel = popSmWrap.firstElementChild.nextElementSibling;
+          // smPopDel.addEventListener("click", function () {
+          //   console.log(this);
+          // });
+
+          // let popDel = document.querySelectorAll(".pop_sm_wrap :last-child");
+          // console.log(popDel);
+          // for (let i = 0; i < popSmWrap.length; i++) {
+          //   popDel[i].addEventListener("click", function () {
+          //     this.style.border = "1px solid blue";
+          //     console.log(this);
+          //   });
+          // }
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
